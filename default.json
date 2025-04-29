@@ -1,21 +1,76 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
-  "groupName": "all dependencies",
-  "groupSlug": "all",
-  "lockFileMaintenance": {
-    "enabled": false
-  },
+  "prCreation": "not-pending",
+  "rebaseWhen": "behind-base-branch",
+  "separateMajorMinor": false,
   "packageRules": [
     {
-      "groupName": "all dependencies",
-      "groupSlug": "all",
-      "matchPackagePatterns": [
-        "*"
-      ]
-    }
-  ],
-  "separateMajorMinor": false
+      "groupName": "Python packages",
+      "matchManagers": [
+        "pip_requirements",
+        "pipenv",
+        "poetry"
+      ],
+      "schedule": [
+        "on the 1st and 15th day of the month"
+      ],
+      "minimumReleaseAge": "3"
+    },
+    {
+      "groupName": "Golang dependencies",
+      "matchManagers": [
+        "gomod"
+      ],
+      "postUpdateOptions": [
+        "gomodTidy",
+        "gomodUpdateImportPaths"
+      ],
+      "schedule": [
+        "on the 1st and 15th day of the month"
+      ],
+      "minimumReleaseAge": "3"
+    },
+    {
+      "groupName": "Dockerfile images",
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "schedule": [
+        "every weekday"
+      ],
+      "minimumReleaseAge": "3"
+    },
+    {
+      "groupName": "Node",
+      "matchPackagePrefixes": ["node"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "schedule": [
+        "on the 1st and 15th day of the month"
+      ],
+      "minimumReleaseAge": "3"
+    },
+    {
+      "groupName": "Compose changes",
+      "matchManagers": [
+        "docker-compose"
+      ],
+      "schedule": [
+        "on the 1st and 15th day of the month"
+      ],
+      "minimumReleaseAge": "3"
+    },
+    {
+      "groupName": "github action changes",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "schedule": [
+        "every weekday"
+      ],
+      "minimumReleaseAge": "3"
+    },
+  ]
 }
