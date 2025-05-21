@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended"
   ],
+  "prConcurrentLimit": 1,
   "prCreation": "not-pending",
   "rebaseWhen": "behind-base-branch",
   "separateMajorMinor": false,
@@ -32,6 +33,17 @@
         "on the 1st and 15th day of the month"
       ],
       "minimumReleaseAge": "3"
+    },
+    {
+      "groupName": "Golang Version Bump",
+      "matchManagers": ["gomod"],
+      "matchDepNames": ["go"],
+      "matchDepTypes": ["golang"],
+      "rangeStrategy": "bump",
+      "postUpdateOptions": [
+        "gomodTidy",
+        "gomodUpdateImportPaths"
+      ],
     },
     {
       "groupName": "Dockerfile images",
